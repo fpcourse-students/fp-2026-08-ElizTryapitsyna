@@ -59,13 +59,13 @@ data Point a = Point a a
 instance Applicative Point where
   pure x = Point x x
 
-  Point _ _ <*> Point _ _ = todo "1.2 <*>"
+  Point f g <*> Point x y = Point (f x) (g y)
 
 stretchPoint :: Num a => a -> Point a -> Point a
-stretchPoint = todo "1.2 stretchPoint"
+stretchPoint factor point = (* factor) <$> point
 
 sumPoints :: Num a => Point a -> Point a -> Point a -> Point a
-sumPoints = todo "1.2 sumPoints"
+sumPoints point1 point2 point3 = (\x y z -> x + y + z) <$> point1 <*> point2 <*> point3
 
 
 -- 1.3. Список вычислений.
