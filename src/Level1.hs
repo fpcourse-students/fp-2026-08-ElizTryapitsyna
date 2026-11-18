@@ -112,4 +112,4 @@ check registry userIds =
 --   runMyIO (readInts 2) (world [2, 5, 8]) == (world [8], [2, 5])
 
 readInts :: Int -> MyIO [Int]
-readInts = todo "1.4"
+readInts n = allResults (replicate n readInt)
