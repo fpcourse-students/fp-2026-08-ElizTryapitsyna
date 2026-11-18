@@ -89,10 +89,13 @@ data User = User { subscribed :: Bool }
 type Registry = Map UserId User
 
 allResults :: Applicative f => [f a] -> f [a]
-allResults = todo "1.3 allResults"
+allResults [] = pure []
+allResults (first : rest) = (:) <$> first <*> allResults rest
 
 check :: Registry -> [UserId] -> Maybe Bool
-check = todo "1.3 check"
+check registry userIds =
+  let found = map (\userId -> Map.lookup userId registry) userIds
+  in  all subscribed <$> allResults found
 
 
 -- 1.4. Чтение нескольких чисел.
