@@ -34,13 +34,17 @@ data Player = Player
   deriving (Eq, Show)
 
 parseName :: String -> Maybe String
-parseName = todo "1.1 name"
+parseName "" = Nothing
+parseName name = Just name
 
 parseScore :: String -> Maybe Integer
-parseScore = todo "1.1 score"
+parseScore score = readMaybe score
 
 parsePlayer :: String -> Maybe Player
-parsePlayer = todo "1.1 player"
+parsePlayer input = 
+  case break (== ':') input of
+    (name, ':' : score) -> Player <$> parseName name <*> parseScore score
+    _                   -> Nothing
 
 
 -- 1.2. Точка на плоскости.
